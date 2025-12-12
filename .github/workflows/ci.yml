@@ -1,32 +1,28 @@
-name: CI/CD Pipeline
+name: CI - Build and Push Docker Image
 
 on:
   push:
     branches: ["main"]
-  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Récupération du code
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Connexion à Docker Hub
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/syyrynesdyry@gmail.com
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.SIRINESDIRI }}
+          password: ${{ secrets.sirinesdiripassword }}
 
-      # 3. Build de l’image Docker
-      - name: Build Docker image
-        run: docker build -t instagram-clone .
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.sirinesdiri }}/instagram-clone:latest .
 
-      # 4. Tag de l'image
-      - name: Tag image
+      - name: Push Docker Image
+        run: docker push ${{ secrets.sirinesdiri }}/instagram-clone:latest
         run: docker tag instagram-clone ${{ secrets.DOCKER_USERNAME }}/instagram-clone:latest
 
       # 5. Push vers Docker Hub
