@@ -23,8 +23,3 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.sirinesdiri }}/instagram-clone:latest
-        run: docker tag instagram-clone ${{ secrets.DOCKER_USERNAME }}/instagram-clone:latest
-
-      # 5. Push vers Docker Hub
-      - name: Push image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/instagram-clone:latest
